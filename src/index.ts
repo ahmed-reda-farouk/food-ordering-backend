@@ -39,7 +39,7 @@ app.use("/api/order", orderRoute);
 // test self-request routes
 const makeSelfRequest = async () => {
   try {
-    const response = await axios.get(`http://localhost:7000/api/data`);
+    const response = await axios.get("http://localhost:7000");
     console.log('Self-request response:', response.data);
   } catch (error) {
     console.error('Error making self-request');
@@ -48,13 +48,8 @@ const makeSelfRequest = async () => {
 
 
 app.listen(7000, () => {
-  console.log("server started on localhost:7000");
-
   setInterval(makeSelfRequest, 12 * 60 * 1000);
   makeSelfRequest();
+  
+  console.log("server started on localhost:7000");
 });
-
-
-
-
-
