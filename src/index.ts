@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 import myRestaurantRoute from "./routes/MyRestaurantRoute";
 import restaurantRoute from "./routes/RestaurantRoute";
 import orderRoute from "./routes/OrderRoute";
+import axios from "axios";
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
@@ -35,6 +36,25 @@ app.use("/api/my/restaurant", myRestaurantRoute);
 app.use("/api/restaurant", restaurantRoute);
 app.use("/api/order", orderRoute);
 
+// test self-request routes
+const makeSelfRequest = async () => {
+  try {
+    const response = await axios.get(`http://localhost:7000/api/data`);
+    console.log('Self-request response:', response.data);
+  } catch (error) {
+    console.error('Error making self-request');
+  }
+};
+
+
 app.listen(7000, () => {
   console.log("server started on localhost:7000");
+
+  setInterval(makeSelfRequest, 12 * 60 * 1000);
+  makeSelfRequest();
 });
+
+
+
+
+
