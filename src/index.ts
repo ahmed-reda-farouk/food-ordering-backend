@@ -7,7 +7,6 @@ import { v2 as cloudinary } from "cloudinary";
 import myRestaurantRoute from "./routes/MyRestaurantRoute";
 import restaurantRoute from "./routes/RestaurantRoute";
 import orderRoute from "./routes/OrderRoute";
-import axios from "axios";
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
@@ -35,8 +34,6 @@ app.use("/api/my/user", myUserRoute);
 app.use("/api/my/restaurant", myRestaurantRoute);
 app.use("/api/restaurant", restaurantRoute);
 app.use("/api/order", orderRoute);
-
-// test self-request routes
 
 
 app.listen(7000, () => {
